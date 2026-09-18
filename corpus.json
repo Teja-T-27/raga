@@ -1,0 +1,1235 @@
+[
+  {
+    "i": 0,
+    "title": "Eastside",
+    "artist": "benny blanco, Halsey, Khalid",
+    "language": "English",
+    "translation": null,
+    "mood": "nostalgic, wistful",
+    "themes": [
+      "young love",
+      "hometown",
+      "growing up",
+      "memory"
+    ],
+    "summary": "Two adults look back at the shape of a teenage love that outgrew them."
+  },
+  {
+    "i": 1,
+    "title": "Remember That Night?",
+    "artist": "Sara Kays",
+    "language": "English",
+    "translation": null,
+    "mood": "quiet ache",
+    "themes": [
+      "post-breakup healing",
+      "memory returning",
+      "unfinished feelings"
+    ],
+    "summary": "You thought you were over it, then one memory pulls you back under."
+  },
+  {
+    "i": 2,
+    "title": "Ordinary",
+    "artist": "Alex Warren",
+    "language": "English",
+    "translation": null,
+    "mood": "devotional, defiant",
+    "themes": [
+      "love as sacred act",
+      "faith metaphors",
+      "seizing time"
+    ],
+    "summary": "If we only have this life, then loving you is the ceremony."
+  },
+  {
+    "i": 3,
+    "title": "Duniyaa",
+    "artist": "Akhil, Dhvani Bhanushali",
+    "language": "Hindi",
+    "translation": "I'll call you into my streets today, my love / build a separate world with you / let no distance come between us / just spend a lifetime together.",
+    "mood": "tender, hopeful",
+    "themes": [
+      "private world of two",
+      "shutting the outside out",
+      "domestic romance"
+    ],
+    "summary": "Let's build a small world where nothing outside can reach us."
+  },
+  {
+    "i": 4,
+    "title": "I Like Me Better",
+    "artist": "LAUV",
+    "language": "English",
+    "translation": null,
+    "mood": "warm, in-love",
+    "themes": [
+      "self-worth through partner",
+      "NYC romance",
+      "youth"
+    ],
+    "summary": "I'm a better version of myself when I'm with you."
+  },
+  {
+    "i": 5,
+    "title": "Pinga",
+    "artist": "Shreya Ghoshal, Vaishali Made",
+    "language": "Marathi",
+    "translation": "Spin, girl, spin / my anklets are calling / the night is enchanting / spin till dawn.",
+    "mood": "festive, teasing",
+    "themes": [
+      "female rivalry/friendship",
+      "dance as speech",
+      "two queens"
+    ],
+    "summary": "Two women dance out what they can't say in words."
+  },
+  {
+    "i": 6,
+    "title": "Sunday Best",
+    "artist": "Surfaces",
+    "language": "English",
+    "translation": null,
+    "mood": "sunny, contented",
+    "themes": [
+      "daily gratitude",
+      "small pleasures",
+      "self-acceptance"
+    ],
+    "summary": "Every day is a Sunday when you decide to feel good."
+  },
+  {
+    "i": 7,
+    "title": "Pal Pal",
+    "artist": "AFUSIC",
+    "language": "Hindi/Urdu",
+    "translation": "Every moment is hard to live without you / all intoxications useless without your eyes / I wait outside your door / come into my dreams dressed up.",
+    "mood": "yearning, restless",
+    "themes": [
+      "obsessive longing",
+      "sleeplessness",
+      "waiting"
+    ],
+    "summary": "Every second without you is a second I can't survive."
+  },
+  {
+    "i": 8,
+    "title": "Leja Re",
+    "artist": "Dhvani Bhanushali",
+    "language": "Hindi + English",
+    "translation": "Don't go far / stay near / I'm crazy for you / take me away, take me away.",
+    "mood": "playful, pleading",
+    "themes": [
+      "surrender to love",
+      "female desire",
+      "being carried off"
+    ],
+    "summary": "Take me with you — I've given up trying to stay put."
+  },
+  {
+    "i": 9,
+    "title": "Qatal",
+    "artist": "Guru Randhawa",
+    "language": "Punjabi",
+    "translation": "Oh girl, your eyes are murder / they kill a hundred thousand / when you move, they kill again / you slaughter people just by looking.",
+    "mood": "swaggering, flirtatious",
+    "themes": [
+      "beloved's eyes as weapons",
+      "romantic 'destruction'",
+      "Punjabi swagger"
+    ],
+    "summary": "Her glance is a loaded gun and everyone she looks at is a corpse."
+  },
+  {
+    "i": 10,
+    "title": "Rang De Basanti",
+    "artist": "A.R. Rahman, Daler Mehndi, K.S. Chithra",
+    "language": "Hindi",
+    "translation": "A little dust of my land, my country / fragrance from an intoxicating breeze / heaving breath / drops of red blood full of passion — colour me in that spring / martyr's saffron.",
+    "mood": "patriotic, elegiac",
+    "themes": [
+      "sacrifice for nation",
+      "youth idealism",
+      "saffron as martyrdom"
+    ],
+    "summary": "Paint me in the colour of dust, blood, and sacrifice of this land."
+  },
+  {
+    "i": 11,
+    "title": "Night Changes",
+    "artist": "One Direction",
+    "language": "English",
+    "translation": null,
+    "mood": "tender, protective",
+    "themes": [
+      "growing up",
+      "fear of change",
+      "reassurance"
+    ],
+    "summary": "You'll change, everything will, but I'll still be here."
+  },
+  {
+    "i": 12,
+    "title": "Baarishein",
+    "artist": "Anuv Jain",
+    "language": "Hindi",
+    "translation": "Gently, softly take me in your arms / into your soft breath, your sighs / come close, we're both sitting here / between our hearts there is rain / on your words alone, the pouring builds.",
+    "mood": "intimate, rain-soaked",
+    "themes": [
+      "rain as emotional weather",
+      "physical closeness",
+      "listening as sacred"
+    ],
+    "summary": "Sit close — the rain between us has been building a while."
+  },
+  {
+    "i": 13,
+    "title": "Sooraj Dooba Hain",
+    "artist": "Arijit Singh, Aditi Singh Sharma",
+    "language": "Hindi",
+    "translation": "Be a little selfish / why do you always listen to the world / listen to yourself sometimes / let something go wrong / let the heart get lost / let the heartbeat run free.",
+    "mood": "liberating, hedonistic",
+    "themes": [
+      "permission to be selfish",
+      "letting go of duty",
+      "night as freedom"
+    ],
+    "summary": "The sun is down — now finally live for yourself."
+  },
+  {
+    "i": 14,
+    "title": "Not Today",
+    "artist": "BTS",
+    "language": "Korean + English",
+    "translation": "All the underdogs / a day may come when we lose / but it is not today / one day flowers will fall / but no, not today / today is still too good to die.",
+    "mood": "defiant, rallying",
+    "themes": [
+      "underdogs",
+      "surviving one more day",
+      "collective resistance"
+    ],
+    "summary": "We'll lose eventually — but not today, not yet, keep going."
+  },
+  {
+    "i": 15,
+    "title": "luther",
+    "artist": "Kendrick Lamar, SZA",
+    "language": "English",
+    "translation": null,
+    "mood": "romantic, luxuriant",
+    "themes": [
+      "devotion",
+      "power in service of love",
+      "if I ruled the world"
+    ],
+    "summary": "If I owned everything, I'd spend it all making your life bigger."
+  },
+  {
+    "i": 16,
+    "title": "Counting Stars",
+    "artist": "OneRepublic",
+    "language": "English",
+    "translation": null,
+    "mood": "restless, hopeful",
+    "themes": [
+      "chasing dreams over money",
+      "insomnia of ambition",
+      "faith in future"
+    ],
+    "summary": "I'd rather lose sleep chasing what matters than count money that doesn't."
+  },
+  {
+    "i": 17,
+    "title": "I Ain't Worried",
+    "artist": "OneRepublic",
+    "language": "English",
+    "translation": null,
+    "mood": "carefree, live-fast",
+    "themes": [
+      "urgency of the moment",
+      "refusing anxiety",
+      "present tense joy"
+    ],
+    "summary": "Time's short — I'm not going to waste it worrying."
+  },
+  {
+    "i": 18,
+    "title": "They Don't Care About Us",
+    "artist": "Michael Jackson",
+    "language": "English",
+    "translation": null,
+    "mood": "defiant, wounded",
+    "themes": [
+      "systemic injustice",
+      "police brutality",
+      "being written off"
+    ],
+    "summary": "They said the truth about us, but we know they never cared."
+  },
+  {
+    "i": 19,
+    "title": "Oorum Blood",
+    "artist": "Sai Abhyankkar (Dude)",
+    "language": "Tamil",
+    "translation": "You are wave, you are forest rain / hey dude, not that / whatever they do I'll do the same / your town, your blood, a ten-thousand aura you carry / how many years of pain you've endured.",
+    "mood": "loyal, brotherly",
+    "themes": [
+      "hometown pride",
+      "blood loyalty",
+      "standing with your people"
+    ],
+    "summary": "My town and my blood — I stand with you through anything."
+  },
+  {
+    "i": 20,
+    "title": "What Makes You Beautiful",
+    "artist": "One Direction",
+    "language": "English",
+    "translation": null,
+    "mood": "cheeky, reassuring",
+    "themes": [
+      "insecurity",
+      "being beautiful without knowing",
+      "teen reassurance"
+    ],
+    "summary": "You're beautiful — you just don't see it, and that's the point."
+  },
+  {
+    "i": 21,
+    "title": "Faded",
+    "artist": "Alan Walker",
+    "language": "English",
+    "translation": null,
+    "mood": "searching, ethereal",
+    "themes": [
+      "losing someone",
+      "fading memory",
+      "where did you go"
+    ],
+    "summary": "Where are you now — you've become a ghost I can't find."
+  },
+  {
+    "i": 22,
+    "title": "Phir Bhi Tumko Chaahunga",
+    "artist": "Arijit Singh",
+    "language": "Hindi",
+    "translation": "You are mine in this moment / tomorrow may not be the same / paths may separate / walking, we may lose each other / but I'll still love you.",
+    "mood": "quietly devoted, aching",
+    "themes": [
+      "unconditional love",
+      "time and separation",
+      "promise beyond the ending"
+    ],
+    "summary": "Even if we lose each other, I'll still love you."
+  },
+  {
+    "i": 23,
+    "title": "Heat Waves",
+    "artist": "Glass Animals",
+    "language": "English",
+    "translation": null,
+    "mood": "feverish, tired",
+    "themes": [
+      "obsessive thinking of someone",
+      "fading relationship",
+      "summer heat as sickness"
+    ],
+    "summary": "You're all I think about even as we're falling apart."
+  },
+  {
+    "i": 24,
+    "title": "Love Me Like You Do",
+    "artist": "Ellie Goulding",
+    "language": "English",
+    "translation": null,
+    "mood": "intense, surrendering",
+    "themes": [
+      "consuming love",
+      "light and dark",
+      "being remade by someone"
+    ],
+    "summary": "You are everything to me — touch me in the way only you can."
+  },
+  {
+    "i": 25,
+    "title": "New Rules",
+    "artist": "Dua Lipa",
+    "language": "English",
+    "translation": null,
+    "mood": "resolute, self-coaching",
+    "themes": [
+      "breakup rules",
+      "not calling him back",
+      "reclaiming self"
+    ],
+    "summary": "I've made rules for myself so I don't fall for him again."
+  },
+  {
+    "i": 26,
+    "title": "Jugnu",
+    "artist": "Badshah, Nikhita Gandhi",
+    "language": "Hindi",
+    "translation": "When you're not near I can't breathe properly / I feel irritable, nothing seems special / since I started dying for you there's no hope of surviving / in life…",
+    "mood": "flirtatious, urgent",
+    "themes": [
+      "attraction as sickness",
+      "obsession",
+      "desire spelled as need"
+    ],
+    "summary": "Without you nothing feels alive — you're the firefly in my night."
+  },
+  {
+    "i": 27,
+    "title": "One Time",
+    "artist": "Justin Bieber",
+    "language": "English",
+    "translation": null,
+    "mood": "young, earnest",
+    "themes": [
+      "first love",
+      "promise",
+      "teen sincerity"
+    ],
+    "summary": "Give me one chance — I'll love you the right way."
+  },
+  {
+    "i": 28,
+    "title": "How Long",
+    "artist": "Charlie Puth",
+    "language": "English",
+    "translation": null,
+    "mood": "guilty, defensive",
+    "themes": [
+      "cheating",
+      "asking forgiveness",
+      "blaming circumstance"
+    ],
+    "summary": "I messed up — how long have you known, and can you forgive?"
+  },
+  {
+    "i": 29,
+    "title": "Mella Mellaga",
+    "artist": "Sid Sriram (ABCD)",
+    "language": "Telugu",
+    "translation": "Slowly, softly you spilled a new colour in my heart / gently you spread like intoxication in my eyes / one moment is the whole truth / half of me is drifting apart / what is this…",
+    "mood": "tender, dreamy",
+    "themes": [
+      "gradual falling in love",
+      "colour and intoxication",
+      "stillness"
+    ],
+    "summary": "You've slowly coloured every corner of me, and I didn't notice until it was done."
+  },
+  {
+    "i": 30,
+    "title": "A Thousand Years",
+    "artist": "Christina Perri",
+    "language": "English",
+    "translation": null,
+    "mood": "devotional, timeless",
+    "themes": [
+      "waiting a thousand years",
+      "fear of loving",
+      "destined love"
+    ],
+    "summary": "I've waited forever for you, and I'd wait a thousand more."
+  },
+  {
+    "i": 31,
+    "title": "Roar",
+    "artist": "Katy Perry",
+    "language": "English",
+    "translation": null,
+    "mood": "empowered, rising",
+    "themes": [
+      "finding voice",
+      "standing up",
+      "reclaiming self"
+    ],
+    "summary": "I kept quiet too long — now watch me roar."
+  },
+  {
+    "i": 32,
+    "title": "End of Beginning",
+    "artist": "Djo",
+    "language": "English",
+    "translation": null,
+    "mood": "bittersweet, retrospective",
+    "themes": [
+      "leaving a city",
+      "end of youth",
+      "looking back"
+    ],
+    "summary": "That version of me in Chicago — I'll never quite be him again."
+  },
+  {
+    "i": 33,
+    "title": "Sunday Best (alt)",
+    "artist": "Surfaces",
+    "language": "English",
+    "translation": null,
+    "mood": "sunny, contented",
+    "themes": [
+      "daily gratitude",
+      "small pleasures",
+      "self-acceptance"
+    ],
+    "summary": "Every day is a Sunday when you decide to feel good."
+  },
+  {
+    "i": 34,
+    "title": "One Thing",
+    "artist": "One Direction",
+    "language": "English",
+    "translation": null,
+    "mood": "smitten, playful",
+    "themes": [
+      "can't figure out attraction",
+      "kryptonite metaphor",
+      "one specific thing"
+    ],
+    "summary": "I don't know what it is about you — but it's something."
+  },
+  {
+    "i": 35,
+    "title": "Kiss You",
+    "artist": "One Direction",
+    "language": "English",
+    "translation": null,
+    "mood": "upbeat, flirty",
+    "themes": [
+      "wanting a kiss",
+      "taking her anywhere",
+      "teen infatuation"
+    ],
+    "summary": "Tell me you want to, and I'll take you anywhere."
+  },
+  {
+    "i": 36,
+    "title": "One Less Lonely Girl",
+    "artist": "Justin Bieber",
+    "language": "English",
+    "translation": null,
+    "mood": "gallant, teen-earnest",
+    "themes": [
+      "saving her from loneliness",
+      "tender rescue",
+      "first love"
+    ],
+    "summary": "I'll make sure there's one less lonely girl in the world — you."
+  },
+  {
+    "i": 37,
+    "title": "Stitches",
+    "artist": "Shawn Mendes",
+    "language": "English",
+    "translation": null,
+    "mood": "wounded, needy",
+    "themes": [
+      "words that cut",
+      "surviving a breakup",
+      "asking to be healed"
+    ],
+    "summary": "Your words cut me open — I need stitches, or someone to breathe me back."
+  },
+  {
+    "i": 38,
+    "title": "Boyfriend",
+    "artist": "Justin Bieber",
+    "language": "English",
+    "translation": null,
+    "mood": "flirty, offering",
+    "themes": [
+      "making a case for himself",
+      "promise of care",
+      "teen swagger"
+    ],
+    "summary": "If I were your boyfriend, I'd never let you go."
+  },
+  {
+    "i": 39,
+    "title": "Cold Water",
+    "artist": "Major Lazer, Justin Bieber, MØ",
+    "language": "English",
+    "translation": null,
+    "mood": "reassuring, steady",
+    "themes": [
+      "being there in crisis",
+      "not letting someone drown",
+      "support"
+    ],
+    "summary": "You won't drown alone — I'll be your cold water when you need it."
+  },
+  {
+    "i": 40,
+    "title": "Love Yourself",
+    "artist": "Justin Bieber",
+    "language": "English",
+    "translation": null,
+    "mood": "dry, done",
+    "themes": [
+      "done with an ex",
+      "calling out selfishness",
+      "gentle burn"
+    ],
+    "summary": "You should go and love yourself — that's clearly your favourite subject."
+  },
+  {
+    "i": 41,
+    "title": "willow",
+    "artist": "Taylor Swift",
+    "language": "English",
+    "translation": null,
+    "mood": "pastoral, enchanted",
+    "themes": [
+      "being drawn to someone",
+      "surrender",
+      "water and willow imagery"
+    ],
+    "summary": "You pulled me under like water — I'll follow you wherever you bend."
+  },
+  {
+    "i": 42,
+    "title": "good 4 u",
+    "artist": "Olivia Rodrigo",
+    "language": "English",
+    "translation": null,
+    "mood": "bitter, punkish",
+    "themes": [
+      "ex who moved on quickly",
+      "sarcasm",
+      "teen rage"
+    ],
+    "summary": "Good for you — must be nice to feel nothing at all."
+  },
+  {
+    "i": 43,
+    "title": "thank u, next",
+    "artist": "Ariana Grande",
+    "language": "English",
+    "translation": null,
+    "mood": "grateful, grown",
+    "themes": [
+      "learning from exes",
+      "gratitude for past love",
+      "moving on with grace"
+    ],
+    "summary": "Every ex taught me something — thanks, next chapter."
+  },
+  {
+    "i": 44,
+    "title": "You Need To Calm Down",
+    "artist": "Taylor Swift",
+    "language": "English",
+    "translation": null,
+    "mood": "exasperated, camp",
+    "themes": [
+      "haters and homophobes",
+      "being unbothered",
+      "allyship"
+    ],
+    "summary": "You're taking shots at everyone — you need to calm down."
+  },
+  {
+    "i": 45,
+    "title": "Savage Love (BTS Remix)",
+    "artist": "Jawsh 685, Jason Derulo, BTS",
+    "language": "English + Korean",
+    "translation": "(Korean bridges roughly) Even though you're savage, I still want you / your love hurts, but I'll take it.",
+    "mood": "catchy, hurting",
+    "themes": [
+      "falling for someone cruel",
+      "angel-with-damage",
+      "attraction to what wounds you"
+    ],
+    "summary": "You look like an angel and love like a knife — and I want more."
+  },
+  {
+    "i": 46,
+    "title": "like JENNIE",
+    "artist": "JENNIE",
+    "language": "English + Korean",
+    "translation": "(Korean lines roughly) Look at me — this is my edition, no one else's / you can't copy this.",
+    "mood": "self-styled, cool",
+    "themes": [
+      "star power",
+      "imitation vs original",
+      "luxury identity"
+    ],
+    "summary": "There's a way to do it 'like JENNIE' — and no one else can."
+  },
+  {
+    "i": 47,
+    "title": "Unstoppable",
+    "artist": "Sia",
+    "language": "English",
+    "translation": null,
+    "mood": "steely, armoured",
+    "themes": [
+      "performing strength",
+      "hiding pain",
+      "invincible façade"
+    ],
+    "summary": "I'm unstoppable — even if the armour is holding me together."
+  },
+  {
+    "i": 48,
+    "title": "Rap God",
+    "artist": "Eminem",
+    "language": "English",
+    "translation": null,
+    "mood": "virtuosic, boasting",
+    "themes": [
+      "technical dominance",
+      "hip-hop history",
+      "being untouchable"
+    ],
+    "summary": "I'm the rap god — nobody's touching this speed or this résumé."
+  },
+  {
+    "i": 49,
+    "title": "Believer",
+    "artist": "Imagine Dragons",
+    "language": "English",
+    "translation": null,
+    "mood": "forged, defiant",
+    "themes": [
+      "pain as fuel",
+      "becoming a believer",
+      "turning wounds into strength"
+    ],
+    "summary": "The pain made me a believer — every hit built the person you see now."
+  },
+  {
+    "i": 50,
+    "title": "Ik Vaari Aa",
+    "artist": "Jubin Nautiyal (Raabta)",
+    "language": "Hindi/Punjabi",
+    "translation": "Come once, dear / come once / I keep watching the road, helpless / evening is falling / this heart is in your name.",
+    "mood": "aching, waiting",
+    "themes": [
+      "longing for the beloved",
+      "dusk as loneliness",
+      "one more chance"
+    ],
+    "summary": "Just come once — that's all I'm asking."
+  },
+  {
+    "i": 51,
+    "title": "I Knew You Were Trouble",
+    "artist": "Taylor Swift",
+    "language": "English",
+    "translation": null,
+    "mood": "regretful, self-aware",
+    "themes": [
+      "falling for the wrong person",
+      "knowing better and ignoring it",
+      "aftermath"
+    ],
+    "summary": "I saw the warning signs, walked in anyway, and here I am."
+  },
+  {
+    "i": 52,
+    "title": "Shivers",
+    "artist": "Ed Sheeran",
+    "language": "English",
+    "translation": null,
+    "mood": "giddy, intoxicated",
+    "themes": [
+      "physical attraction",
+      "strawberries and lipstick",
+      "intensity"
+    ],
+    "summary": "You give me shivers — everything about you goes straight through me."
+  },
+  {
+    "i": 53,
+    "title": "Bad Habits",
+    "artist": "Ed Sheeran",
+    "language": "English",
+    "translation": null,
+    "mood": "self-aware, seductive",
+    "themes": [
+      "addictive relationship",
+      "nighttime patterns",
+      "can't say no"
+    ],
+    "summary": "Bad habits start at night — and you're the worst one I keep."
+  },
+  {
+    "i": 54,
+    "title": "Sucker",
+    "artist": "Jonas Brothers",
+    "language": "English",
+    "translation": null,
+    "mood": "buoyant, in-love",
+    "themes": [
+      "being helplessly hers",
+      "chosen once and for all",
+      "married life"
+    ],
+    "summary": "I'm a sucker for you — that's the whole story."
+  },
+  {
+    "i": 55,
+    "title": "Company",
+    "artist": "Emiway Bantai",
+    "language": "Hindi",
+    "translation": "So what's the company saying / are we conscious or not / everyone here — what a shot / Emiway bantai / and remember the company folks / take it forward again…",
+    "mood": "swaggering, hustling",
+    "themes": [
+      "hustler squad",
+      "rap crew loyalty",
+      "the come-up"
+    ],
+    "summary": "The company's up — everyone here knows why we hustle."
+  },
+  {
+    "i": 56,
+    "title": "Thinking Out Loud",
+    "artist": "Ed Sheeran",
+    "language": "English",
+    "translation": null,
+    "mood": "warm, promised",
+    "themes": [
+      "growing old together",
+      "enduring love",
+      "wedding song"
+    ],
+    "summary": "When we're old and worn out — I'll still love you the same."
+  },
+  {
+    "i": 57,
+    "title": "Mood",
+    "artist": "24kGoldn, iann dior",
+    "language": "English",
+    "translation": null,
+    "mood": "frustrated, dry",
+    "themes": [
+      "exhausted by moody partner",
+      "asking for peace",
+      "distance"
+    ],
+    "summary": "Why are you always in a mood — I'm out."
+  },
+  {
+    "i": 58,
+    "title": "Without Me",
+    "artist": "Halsey",
+    "language": "English",
+    "translation": null,
+    "mood": "burned, indignant",
+    "themes": [
+      "giving everything and being replaced",
+      "betrayal",
+      "calling it out"
+    ],
+    "summary": "I built you up — you couldn't have done any of it without me."
+  },
+  {
+    "i": 59,
+    "title": "Blinding Lights",
+    "artist": "The Weeknd",
+    "language": "English",
+    "translation": null,
+    "mood": "neon, longing",
+    "themes": [
+      "late-night driving",
+      "withdrawal from an ex",
+      "city lights as ache"
+    ],
+    "summary": "I'm chasing you through the city at night, and I can't stop."
+  },
+  {
+    "i": 60,
+    "title": "Beautiful People",
+    "artist": "Ed Sheeran, Khalid",
+    "language": "English",
+    "translation": null,
+    "mood": "observant, grounded",
+    "themes": [
+      "LA scene",
+      "not fitting in",
+      "staying yourself in a glamorous crowd"
+    ],
+    "summary": "They're beautiful people — but we don't need to be."
+  },
+  {
+    "i": 61,
+    "title": "I'm Good (Blue)",
+    "artist": "David Guetta, Bebe Rexha",
+    "language": "English",
+    "translation": null,
+    "mood": "bright, party",
+    "themes": [
+      "night out",
+      "feeling good",
+      "dancefloor confidence"
+    ],
+    "summary": "I'm good, I'm blue — I'm going to have the best night of my life."
+  },
+  {
+    "i": 62,
+    "title": "Seven",
+    "artist": "Jung Kook, Latto",
+    "language": "English + Korean",
+    "translation": "(Korean bridges roughly) With you every day of the week / all night long.",
+    "mood": "sultry, playful",
+    "themes": [
+      "everyday devotion",
+      "seven days a week",
+      "being someone's whole schedule"
+    ],
+    "summary": "I want you every day of the week, from morning through night."
+  },
+  {
+    "i": 63,
+    "title": "Thunder",
+    "artist": "Imagine Dragons",
+    "language": "English",
+    "translation": null,
+    "mood": "triumphant, vindicated",
+    "themes": [
+      "dreamer proven right",
+      "kids who mocked you",
+      "becoming the storm"
+    ],
+    "summary": "They laughed at my dreams — now they hear the thunder."
+  },
+  {
+    "i": 64,
+    "title": "Love Don't Hate It",
+    "artist": "Duncan Laurence",
+    "language": "English",
+    "translation": null,
+    "mood": "tender, hopeful",
+    "themes": [
+      "falling suddenly",
+      "not being ready",
+      "letting love in"
+    ],
+    "summary": "I wasn't ready — but love, don't hate me for being scared."
+  },
+  {
+    "i": 65,
+    "title": "Arcade",
+    "artist": "Duncan Laurence, FLETCHER",
+    "language": "English",
+    "translation": null,
+    "mood": "broken, honest",
+    "themes": [
+      "heartbreak as arcade you keep losing at",
+      "carrying pieces of a broken heart",
+      "not being okay"
+    ],
+    "summary": "Loving you was a losing game I kept playing anyway."
+  },
+  {
+    "i": 66,
+    "title": "Circles",
+    "artist": "Post Malone",
+    "language": "English",
+    "translation": null,
+    "mood": "tired, resigned",
+    "themes": [
+      "repeating relationship cycles",
+      "couldn't turn back",
+      "letting go"
+    ],
+    "summary": "We keep running in circles — maybe it's time to stop."
+  },
+  {
+    "i": 67,
+    "title": "Don't Start Now",
+    "artist": "Dua Lipa",
+    "language": "English",
+    "translation": null,
+    "mood": "triumphant, cool",
+    "themes": [
+      "moved on from ex",
+      "don't come back now",
+      "reclaimed power"
+    ],
+    "summary": "I've moved on — don't show up now trying to restart."
+  },
+  {
+    "i": 68,
+    "title": "Flowers",
+    "artist": "Miley Cyrus",
+    "language": "English",
+    "translation": null,
+    "mood": "self-reclaiming, calm",
+    "themes": [
+      "post-divorce independence",
+      "doing for herself what he wouldn't",
+      "quiet strength"
+    ],
+    "summary": "I can buy myself flowers — I don't need you to."
+  },
+  {
+    "i": 69,
+    "title": "People",
+    "artist": "Libianca",
+    "language": "English",
+    "translation": null,
+    "mood": "lonely, questioning",
+    "themes": [
+      "being checked on",
+      "isolation",
+      "drinking to cope"
+    ],
+    "summary": "Did anyone actually check on me? I've been drinking through it alone."
+  },
+  {
+    "i": 70,
+    "title": "Rockabye",
+    "artist": "Clean Bandit, Sean Paul, Anne-Marie",
+    "language": "English",
+    "translation": null,
+    "mood": "lullaby, resilient",
+    "themes": [
+      "single mother's love",
+      "working for her child",
+      "sacrifice"
+    ],
+    "summary": "Rockabye, baby — I'll do whatever it takes to keep you safe."
+  },
+  {
+    "i": 71,
+    "title": "Never Say Never",
+    "artist": "Justin Bieber, Jaden Smith",
+    "language": "English",
+    "translation": null,
+    "mood": "scrappy, resolved",
+    "themes": [
+      "refusing to give up",
+      "underdog anthem",
+      "Karate Kid crossover"
+    ],
+    "summary": "I'll never say never — I'll keep getting back up."
+  },
+  {
+    "i": 72,
+    "title": "Blank Space",
+    "artist": "Taylor Swift",
+    "language": "English",
+    "translation": null,
+    "mood": "knowing, theatrical",
+    "themes": [
+      "playing into the crazy-girlfriend narrative",
+      "reckless romance",
+      "self-parody"
+    ],
+    "summary": "Got a blank space with your name on it — this'll be beautiful, or a nightmare."
+  },
+  {
+    "i": 73,
+    "title": "Let Me Down Slowly",
+    "artist": "Alec Benjamin",
+    "language": "English",
+    "translation": null,
+    "mood": "anxious, pleading",
+    "themes": [
+      "sensing a breakup",
+      "asking for a gentle ending",
+      "holding on to hope"
+    ],
+    "summary": "If you're going to leave me — let me down slowly."
+  },
+  {
+    "i": 74,
+    "title": "Attention",
+    "artist": "Charlie Puth",
+    "language": "English",
+    "translation": null,
+    "mood": "frustrated, seeing-through",
+    "themes": [
+      "ex who wants attention not love",
+      "calling out games",
+      "done with drama"
+    ],
+    "summary": "You just want my attention — you don't actually want me."
+  },
+  {
+    "i": 75,
+    "title": "We Don't Talk Anymore",
+    "artist": "Charlie Puth, Selena Gomez",
+    "language": "English",
+    "translation": null,
+    "mood": "melancholy, regretful",
+    "themes": [
+      "fading relationship",
+      "silence after love",
+      "missing what was"
+    ],
+    "summary": "We used to talk about everything — now we don't talk at all."
+  },
+  {
+    "i": 76,
+    "title": "The Heart Wants What It Wants",
+    "artist": "Selena Gomez",
+    "language": "English",
+    "translation": null,
+    "mood": "conflicted, honest",
+    "themes": [
+      "falling for the wrong person",
+      "overriding logic",
+      "fever of feeling"
+    ],
+    "summary": "I know it's bad for me — but the heart wants what it wants."
+  },
+  {
+    "i": 77,
+    "title": "Same Old Love",
+    "artist": "Selena Gomez",
+    "language": "English",
+    "translation": null,
+    "mood": "tired, done",
+    "themes": [
+      "sick of the cycle",
+      "recognising the pattern",
+      "refusing to repeat it"
+    ],
+    "summary": "I've heard this same old love a million times — I'm done."
+  },
+  {
+    "i": 78,
+    "title": "Yummy",
+    "artist": "Justin Bieber",
+    "language": "English",
+    "translation": null,
+    "mood": "playful, sensual",
+    "themes": [
+      "married-life desire",
+      "enjoying his wife",
+      "light bragging"
+    ],
+    "summary": "You've got that yummy — I'll come running."
+  },
+  {
+    "i": 79,
+    "title": "Lose You To Love Me",
+    "artist": "Selena Gomez",
+    "language": "English",
+    "translation": null,
+    "mood": "released, clear",
+    "themes": [
+      "post-breakup self-recovery",
+      "needing to lose someone to find yourself",
+      "closure"
+    ],
+    "summary": "I had to lose you to love me — and I finally did."
+  },
+  {
+    "i": 80,
+    "title": "You Belong With Me",
+    "artist": "Taylor Swift",
+    "language": "English",
+    "translation": null,
+    "mood": "yearning, quietly hopeful",
+    "themes": [
+      "best-friend love",
+      "the girl he doesn't see",
+      "being right there"
+    ],
+    "summary": "You belong with me — you just haven't figured it out yet."
+  },
+  {
+    "i": 81,
+    "title": "Perfect",
+    "artist": "One Direction",
+    "language": "English",
+    "translation": null,
+    "mood": "self-aware, flirty",
+    "themes": [
+      "being the wrong kind of guy",
+      "perfect for a wild night",
+      "not the guy you take home"
+    ],
+    "summary": "I'm not the perfect boyfriend — but I'm perfect for tonight."
+  },
+  {
+    "i": 82,
+    "title": "Steal My Girl",
+    "artist": "One Direction",
+    "language": "English",
+    "translation": null,
+    "mood": "protective, in-love",
+    "themes": [
+      "long-term love",
+      "being sure of her",
+      "everyone wanting what he has"
+    ],
+    "summary": "She's been mine since sixteen — everyone wants to steal her."
+  },
+  {
+    "i": 83,
+    "title": "Sugar",
+    "artist": "Maroon 5",
+    "language": "English",
+    "translation": null,
+    "mood": "needy, sweet",
+    "themes": [
+      "desperate for her love",
+      "sugar as comfort",
+      "begging"
+    ],
+    "summary": "I need your love like sugar — right now, don't make me wait."
+  },
+  {
+    "i": 84,
+    "title": "Hymn for the Weekend",
+    "artist": "Coldplay, Beyoncé",
+    "language": "English",
+    "translation": null,
+    "mood": "euphoric, worshipful",
+    "themes": [
+      "love as intoxication",
+      "weekend as sacred",
+      "angel imagery"
+    ],
+    "summary": "You're my angel-drug — pour a symphony, shoot us across the sky."
+  },
+  {
+    "i": 85,
+    "title": "Sajni",
+    "artist": "Arijit Singh (Laapataa Ladies)",
+    "language": "Hindi",
+    "translation": "O beloved, how do the days and nights pass / how do I speak to you, your memory haunts me / how heavy the clouds gather / your memory keeps torturing me.",
+    "mood": "aching, monsoon-heavy",
+    "themes": [
+      "separation",
+      "longing",
+      "memory as torment"
+    ],
+    "summary": "How am I supposed to get through the day when I can't stop remembering you?"
+  },
+  {
+    "i": 86,
+    "title": "Allah Waariyan",
+    "artist": "Shafqat Amanat Ali (Yaariyan)",
+    "language": "Hindi/Urdu",
+    "translation": "Own people are hurt, strangers are hurt / friends may not be / dreams break, promises break / a heart shouldn't / even if God is upset, may friends never be.",
+    "mood": "prayerful, brotherly",
+    "themes": [
+      "friendship above all",
+      "dua/prayer for friends",
+      "sacred friendship"
+    ],
+    "summary": "May God protect our friendship above everything else."
+  },
+  {
+    "i": 87,
+    "title": "Tu Jaane Na",
+    "artist": "Atif Aslam (Ajab Prem Ki Ghazab Kahani)",
+    "language": "Hindi",
+    "translation": "How to say why I love you, dear / matters of the heart, see the eyes of language explain to you / you don't know, dear, you don't know / even meeting we didn't meet / didn't get to join with you / you don't know.",
+    "mood": "aching, unspoken",
+    "themes": [
+      "unspoken love",
+      "the beloved who doesn't see",
+      "missed connection"
+    ],
+    "summary": "I love you and you don't know — and I don't know how to say it."
+  }
+]
