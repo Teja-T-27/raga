@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>raga — a chat over your songs</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+  body{font-family:-apple-system,system-ui,sans-serif;max-width:720px;margin:40px auto;padding:0 20px;background:#faf7f2;color:#1a1a1a}
+  h1{font-weight:300;letter-spacing:-1px}
+  .sub{color:#888;margin-bottom:30px;font-size:14px}
+  #chat{border:1px solid #e4dfd6;border-radius:8px;padding:16px;min-height:300px;background:#fff;margin-bottom:12px;white-space:pre-wrap;font-size:15px;line-height:1.6}
+  .u{color:#7a5cff;font-weight:500;margin-top:12px}
+  .a{color:#1a1a1a;margin-top:4px}
+  form{display:flex;gap:8px}
+  input{flex:1;padding:12px;border:1px solid #e4dfd6;border-radius:8px;font-size:15px;background:#fff}
+  button{padding:12px 20px;border:0;border-radius:8px;background:#1a1a1a;color:#fff;cursor:pointer;font-size:15px}
+  button:disabled{opacity:.5}
+</style>
+</head>
+<body>
+<h1>raga</h1>
+<div class="sub">ask anything about the 88 songs in the corpus — themes, moods, translations, comparisons.</div>
+<div id="chat"></div>
+<form id="f">
+  <input id="q" placeholder="which songs are about longing at night?" autocomplete="off" required>
+  <button id="b">ask</button>
+</form>
+<script>
+const chat=document.getElementById('chat'),f=document.getElementById('f'),q=document.getElementById('q'),b=document.getElementById('b');
+const history=[];
+f.onsubmit=async e=>{
+  e.preventDefault();
+  const text=q.value.trim();if(!text)return;
+  chat.innerHTML+=`<div class="u">you: ${text}</div><div class="a" id="cur">thinking…</div>`;
+  q.value='';b.disabled=true;
+  history.push({role:'user',content:text});
+  const r=await fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({history})});
+  const j=await r.json();
+  const reply=j.reply||j.error||'(no reply)';
+  history.push({role:'model',content:reply});
+  document.getElementById('cur').textContent=reply;
+  document.getElementById('cur').removeAttribute('id');
+  b.disabled=false;q.focus();
+  window.scrollTo(0,document.body.scrollHeight);
+};
+</script>
+</body>
+</html>
