@@ -7,7 +7,7 @@
 <style>
   :root {
     --bg: #faf7f2; --fg: #1a1a1a; --muted: #8a857c;
-    --card: #ffffff; --border: #ece5d8;
+    --card: #ffffff; --border: #ece5d8; --panel: #f5f0e6;
     --accent: #7a5cff; --accent-soft: #ede8ff;
     --good: #4a8; --good-soft: #eaf6ec;
     --serif: "Cormorant Garamond", "Iowan Old Style", Georgia, serif;
@@ -19,14 +19,25 @@
     max-width: 780px; margin: 0 auto; padding: 40px 24px 120px;
     line-height: 1.55; font-size: 15.5px;
   }
-  header { margin-bottom: 28px; }
+
+  /* landing hero */
+  .hero { margin-bottom: 32px; }
   h1 {
-    font-family: var(--serif); font-weight: 500; font-size: 46px;
-    letter-spacing: -1px; margin: 0 0 4px; line-height: 1;
+    font-family: var(--serif); font-weight: 500; font-size: 56px;
+    letter-spacing: -1.5px; margin: 0 0 6px; line-height: 1;
   }
   h1 em { color: var(--accent); font-style: italic; }
-  .tagline { color: var(--muted); font-size: 14px; }
-  .prompts { display: flex; flex-wrap: wrap; gap: 8px; margin: 20px 0 28px; }
+  .tagline { color: var(--muted); font-size: 15px; margin-bottom: 20px; }
+  .stats {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 12px; padding: 18px; margin-bottom: 24px;
+  }
+  .stat { text-align: center; }
+  .stat .n { font-family: var(--serif); font-size: 28px; font-weight: 500; color: var(--accent); line-height: 1; }
+  .stat .l { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .5px; margin-top: 4px; }
+
+  .prompts { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
   .prompts button {
     background: var(--card); border: 1px solid var(--border);
     padding: 8px 14px; border-radius: 999px; font-size: 13px;
@@ -34,7 +45,8 @@
     transition: all .15s;
   }
   .prompts button:hover { border-color: var(--accent); color: var(--accent); }
-  #chat { display: flex; flex-direction: column; gap: 24px; margin-bottom: 24px; }
+
+  #chat { display: flex; flex-direction: column; gap: 28px; margin-bottom: 24px; }
   .turn { animation: fade .3s ease; }
   @keyframes fade { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
   .q {
@@ -43,7 +55,6 @@
     padding-left: 14px; margin-bottom: 12px;
   }
   .a { white-space: pre-wrap; color: #222; font-size: 15.5px; }
-  .a p { margin: 0 0 12px; }
   .status {
     font-size: 12.5px; color: var(--muted); font-style: italic;
     margin: 6px 0; display: flex; align-items: center; gap: 6px;
@@ -53,27 +64,53 @@
     background: var(--accent); animation: pulse 1s infinite;
   }
   @keyframes pulse { 0%,100% { opacity: .3; } 50% { opacity: 1; } }
+
+  /* chips (retrieved songs / clickable) */
   .chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0 4px; }
   .chip {
     background: var(--accent-soft); color: var(--accent);
     padding: 4px 10px; border-radius: 999px; font-size: 12px;
+    cursor: pointer; border: 0; font-family: inherit;
+    transition: transform .1s;
   }
-  .plan {
-    background: #f5f0e6; border-radius: 8px; padding: 12px 14px;
-    font-size: 13px; color: #555; margin: 8px 0;
+  .chip:hover { transform: translateY(-1px); }
+  .chip.label { background: #eee; color: #555; cursor: default; }
+
+  /* research timeline */
+  .timeline { margin: 12px 0; position: relative; padding-left: 20px; }
+  .timeline::before {
+    content: ""; position: absolute; left: 6px; top: 6px; bottom: 6px;
+    width: 2px; background: var(--border);
   }
-  .plan b { color: #222; }
-  .plan ol { margin: 6px 0 0; padding-left: 20px; }
+  .step {
+    position: relative; padding: 6px 0 6px 8px; font-size: 13px; color: #444;
+  }
+  .step::before {
+    content: ""; position: absolute; left: -18px; top: 12px;
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--card); border: 2px solid var(--accent);
+  }
+  .step.done::before { background: var(--accent); }
+  .step .label { font-weight: 600; color: var(--fg); font-size: 13px; }
+  .step summary { cursor: pointer; list-style: none; }
+  .step summary::-webkit-details-marker { display: none; }
+  .step details[open] summary .caret { transform: rotate(90deg); }
+  .step .caret { display: inline-block; transition: transform .15s; margin-right: 4px; color: var(--muted); }
+  .step .detail { margin-top: 6px; font-size: 12.5px; color: #666; line-height: 1.5; }
+  .step .detail .chips { margin-top: 4px; }
+
   .judge {
     background: var(--good-soft); border-radius: 8px; padding: 10px 14px;
     font-size: 13px; color: #2a5a3a; margin-top: 12px;
     display: flex; gap: 16px; flex-wrap: wrap;
   }
   .judge b { color: #1a3a24; }
+
+  /* input bar */
   form {
     position: fixed; bottom: 0; left: 0; right: 0; background: var(--bg);
     border-top: 1px solid var(--border); padding: 16px 24px;
-    display: flex; justify-content: center;
+    display: flex; justify-content: center; z-index: 10;
   }
   .bar { max-width: 780px; width: 100%; display: flex; gap: 8px; align-items: center; }
   input[type=text] {
@@ -92,22 +129,65 @@
     align-items: center; gap: 6px; cursor: pointer; user-select: none;
     padding-left: 8px;
   }
+
+  /* song detail panel */
+  .panel-bg {
+    position: fixed; inset: 0; background: rgba(0,0,0,.35);
+    opacity: 0; pointer-events: none; transition: opacity .2s; z-index: 100;
+  }
+  .panel-bg.open { opacity: 1; pointer-events: auto; }
+  .panel {
+    position: fixed; top: 0; right: 0; bottom: 0; width: min(440px, 90vw);
+    background: var(--bg); border-left: 1px solid var(--border);
+    transform: translateX(100%); transition: transform .25s ease; z-index: 101;
+    overflow-y: auto; padding: 32px 28px;
+  }
+  .panel.open { transform: translateX(0); }
+  .panel .close {
+    position: absolute; top: 16px; right: 16px; background: transparent;
+    border: 0; font-size: 22px; cursor: pointer; color: var(--muted);
+  }
+  .panel h2 {
+    font-family: var(--serif); font-weight: 500; font-size: 30px;
+    margin: 0 0 4px; line-height: 1.15;
+  }
+  .panel .artist { color: var(--muted); font-size: 14px; margin-bottom: 20px; }
+  .panel .row { margin-bottom: 16px; font-size: 14px; }
+  .panel .row .k {
+    font-size: 11px; text-transform: uppercase; letter-spacing: .5px;
+    color: var(--muted); margin-bottom: 3px;
+  }
+  .panel .row .v { color: #222; line-height: 1.5; }
+  .panel .themes span {
+    display: inline-block; background: var(--panel); padding: 3px 10px;
+    border-radius: 999px; font-size: 12px; margin: 2px 4px 2px 0;
+  }
+  .panel .summary { font-family: var(--serif); font-size: 18px; font-style: italic; color: #333; line-height: 1.4; }
+  .panel .translation { background: var(--panel); padding: 12px 14px; border-radius: 8px; font-size: 14px; color: #444; }
+
   @media (max-width: 600px) {
-    h1 { font-size: 36px; }
+    h1 { font-size: 40px; }
     body { padding: 24px 16px 120px; }
+    .stats { grid-template-columns: repeat(2, 1fr); }
   }
 </style>
 </head>
 <body>
-<header>
+<header class="hero">
   <h1><em>raga</em></h1>
-  <div class="tagline">a chat over 88 songs · themes, moods, translations, cross-song analysis</div>
+  <div class="tagline">a chat over a personal playlist · themes, moods, translations, cross-song analysis</div>
+  <div class="stats">
+    <div class="stat"><div class="n">88</div><div class="l">songs</div></div>
+    <div class="stat"><div class="n">6</div><div class="l">languages</div></div>
+    <div class="stat"><div class="n">3072</div><div class="l">embedding dim</div></div>
+    <div class="stat"><div class="n">4</div><div class="l">agent roles</div></div>
+  </div>
 </header>
 
 <div class="prompts">
   <button data-p="which songs are about longing at night?">longing at night</button>
   <button data-p="compare how heartbreak is expressed across languages">heartbreak across languages</button>
-  <button data-p="which songs would fit a slow rainy evening?">slow rainy evening</button>
+  <button data-p="which songs would fit a slow rainy evening?">rainy evening</button>
   <button data-p="find high-energy party tracks">party tracks</button>
   <button data-p="which songs have the most vivid imagery?">vivid imagery</button>
 </div>
@@ -122,10 +202,36 @@
   </div>
 </form>
 
+<div class="panel-bg" id="panelBg"></div>
+<aside class="panel" id="panel">
+  <button class="close" id="panelClose">×</button>
+  <div id="panelBody"></div>
+</aside>
+
 <script>
 const chat = document.getElementById('chat');
 const f = document.getElementById('f'), q = document.getElementById('q'), b = document.getElementById('b');
 const research = document.getElementById('research');
+const panel = document.getElementById('panel'), panelBg = document.getElementById('panelBg'), panelBody = document.getElementById('panelBody');
+document.getElementById('panelClose').onclick = closePanel;
+panelBg.onclick = closePanel;
+function closePanel() { panel.classList.remove('open'); panelBg.classList.remove('open'); }
+async function openSongPanel(title) {
+  panel.classList.add('open'); panelBg.classList.add('open');
+  panelBody.innerHTML = '<div style="color:#888;font-size:14px">loading…</div>';
+  const r = await fetch('/api/song?title=' + encodeURIComponent(title));
+  const s = await r.json();
+  if (s.error) { panelBody.innerHTML = `<div>${s.error}</div>`; return; }
+  panelBody.innerHTML = `
+    <h2>${s.title}</h2>
+    <div class="artist">${s.artist} · ${s.language}</div>
+    <div class="row"><div class="summary">"${s.summary}"</div></div>
+    <div class="row"><div class="k">mood</div><div class="v">${s.mood}</div></div>
+    <div class="row"><div class="k">themes</div><div class="v themes">${(s.themes||[]).map(t=>`<span>${t}</span>`).join('')}</div></div>
+    ${s.translation ? `<div class="row"><div class="k">translation</div><div class="translation">${s.translation}</div></div>` : ''}
+  `;
+}
+
 const history = [];
 
 document.querySelectorAll('.prompts button').forEach(btn => {
@@ -144,6 +250,10 @@ async function ask(text) {
   statusEl.textContent = 'thinking…';
   body.appendChild(statusEl);
 
+  const timeline = document.createElement('div');
+  timeline.className = 'timeline';
+  let usingTimeline = false;
+
   history.push({role:'user', content:text});
   b.disabled = true;
 
@@ -157,8 +267,22 @@ async function ask(text) {
   });
   const reader = r.body.getReader();
   const dec = new TextDecoder();
-  let buf = '', currentEvent = 'message';
+  let buf = '';
   let fullAnswer = '';
+
+  function addStep(label, detailHTML) {
+    if (!usingTimeline) { body.insertBefore(timeline, statusEl); usingTimeline = true; }
+    // mark previous step done
+    timeline.querySelectorAll('.step').forEach(s => s.classList.add('done'));
+    const step = document.createElement('div');
+    step.className = 'step';
+    if (detailHTML) {
+      step.innerHTML = `<details><summary><span class="caret">▸</span><span class="label">${label}</span></summary><div class="detail">${detailHTML}</div></details>`;
+    } else {
+      step.innerHTML = `<span class="label">${label}</span>`;
+    }
+    timeline.appendChild(step);
+  }
 
   while (true) {
     const {done, value} = await reader.read();
@@ -182,21 +306,21 @@ async function ask(text) {
       } else if (ev === 'retrieved') {
         const chips = document.createElement('div');
         chips.className = 'chips';
-        chips.innerHTML = payload.songs.map(s => `<span class="chip">${s.title} · ${s.artist.split(',')[0]}</span>`).join('');
+        chips.innerHTML = `<span class="chip label">retrieved</span>` + payload.songs.map(s => `<button class="chip" data-t="${s.title.replace(/"/g,'&quot;')}">${s.title}</button>`).join('');
+        chips.querySelectorAll('.chip[data-t]').forEach(c => c.onclick = () => openSongPanel(c.dataset.t));
         body.insertBefore(chips, statusEl);
       } else if (ev === 'plan') {
-        const plan = document.createElement('div');
-        plan.className = 'plan';
-        plan.innerHTML = `<b>plan</b><ol>${payload.subqs.map(s=>`<li>${s}</li>`).join('')}</ol>`;
-        body.insertBefore(plan, statusEl);
+        addStep('planned sub-questions', '<ol style="margin:4px 0 0;padding-left:18px">' + payload.subqs.map(s=>`<li>${s}</li>`).join('') + '</ol>');
       } else if (ev === 'sub') {
-        const chips = document.createElement('div');
-        chips.className = 'chips';
-        chips.innerHTML = `<span class="chip">sub-agent ${payload.i}</span>` + payload.retrieved.map(t => `<span class="chip">${t}</span>`).join('');
-        body.insertBefore(chips, statusEl);
+        const chipHTML = payload.retrieved.map(t => `<span class="chip" data-t="${t.replace(/"/g,'&quot;')}" style="cursor:pointer">${t}</span>`).join(' ');
+        addStep(`sub-agent ${payload.i} · retrieved`, `<div class="chips">${chipHTML}</div>`);
+        setTimeout(() => {
+          timeline.querySelectorAll('.chip[data-t]').forEach(c => c.onclick = () => openSongPanel(c.dataset.t));
+        }, 0);
       } else if (ev === 'chunk') {
         if (!answerStarted) {
-          statusEl.remove();
+          if (statusEl.parentNode) statusEl.remove();
+          if (usingTimeline) timeline.querySelectorAll('.step').forEach(s => s.classList.add('done'));
           body.appendChild(answerEl);
           answerStarted = true;
         }
