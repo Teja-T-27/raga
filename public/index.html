@@ -4,60 +4,83 @@
 <meta charset="UTF-8">
 <title>raga · a chat over your songs</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #faf7f2; --fg: #1a1a1a; --muted: #8a857c;
     --card: #ffffff; --border: #ece5d8; --panel: #f5f0e6;
     --accent: #7a5cff; --accent-soft: #ede8ff;
     --good: #4a8; --good-soft: #eaf6ec;
+    --shadow: 0 1px 3px rgba(0,0,0,.04), 0 8px 24px rgba(0,0,0,.04);
     --serif: "Cormorant Garamond", "Iowan Old Style", Georgia, serif;
-    --sans: -apple-system, "Inter", system-ui, sans-serif;
+    --sans: "Inter", -apple-system, system-ui, sans-serif;
+  }
+  [data-theme="dark"] {
+    --bg: #14141a; --fg: #f0ede6; --muted: #8a857c;
+    --card: #1c1c24; --border: #2a2a35; --panel: #23232e;
+    --accent: #a493ff; --accent-soft: #2a2440;
+    --good: #6ac; --good-soft: #1e2f28;
+    --shadow: 0 1px 3px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.25);
   }
   * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
   body {
     font-family: var(--sans); background: var(--bg); color: var(--fg);
-    max-width: 780px; margin: 0 auto; padding: 40px 24px 120px;
+    max-width: 780px; margin: 0 auto; padding: 40px 24px 140px;
     line-height: 1.55; font-size: 15.5px;
+    transition: background .2s, color .2s;
   }
 
-  /* landing hero */
+  .theme-toggle {
+    position: fixed; top: 20px; right: 20px; z-index: 50;
+    background: var(--card); border: 1px solid var(--border);
+    width: 38px; height: 38px; border-radius: 50%; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 15px; box-shadow: var(--shadow);
+    transition: transform .15s;
+  }
+  .theme-toggle:hover { transform: rotate(20deg); }
+
   .hero { margin-bottom: 32px; }
   h1 {
-    font-family: var(--serif); font-weight: 500; font-size: 56px;
-    letter-spacing: -1.5px; margin: 0 0 6px; line-height: 1;
+    font-family: var(--serif); font-weight: 500; font-size: 64px;
+    letter-spacing: -2px; margin: 0 0 6px; line-height: 1;
   }
   h1 em { color: var(--accent); font-style: italic; }
-  .tagline { color: var(--muted); font-size: 15px; margin-bottom: 20px; }
+  .tagline { color: var(--muted); font-size: 15px; margin-bottom: 20px; max-width: 560px; }
   .stats {
     display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
     background: var(--card); border: 1px solid var(--border);
-    border-radius: 12px; padding: 18px; margin-bottom: 24px;
+    border-radius: 14px; padding: 20px; margin-bottom: 24px;
+    box-shadow: var(--shadow);
   }
   .stat { text-align: center; }
-  .stat .n { font-family: var(--serif); font-size: 28px; font-weight: 500; color: var(--accent); line-height: 1; }
-  .stat .l { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .5px; margin-top: 4px; }
+  .stat .n { font-family: var(--serif); font-size: 30px; font-weight: 500; color: var(--accent); line-height: 1; }
+  .stat .l { font-size: 10.5px; color: var(--muted); text-transform: uppercase; letter-spacing: .6px; margin-top: 6px; }
 
-  .prompts { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+  .prompts { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; }
   .prompts button {
     background: var(--card); border: 1px solid var(--border);
     padding: 8px 14px; border-radius: 999px; font-size: 13px;
-    cursor: pointer; color: #444; font-family: inherit;
+    cursor: pointer; color: var(--fg); font-family: inherit;
     transition: all .15s;
   }
-  .prompts button:hover { border-color: var(--accent); color: var(--accent); }
+  .prompts button:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
 
-  #chat { display: flex; flex-direction: column; gap: 28px; margin-bottom: 24px; }
+  #chat { display: flex; flex-direction: column; gap: 32px; margin-bottom: 24px; }
   .turn { animation: fade .3s ease; }
   @keyframes fade { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
   .q {
-    font-family: var(--serif); font-size: 22px; font-weight: 500;
+    font-family: var(--serif); font-size: 24px; font-weight: 500;
     color: var(--fg); border-left: 3px solid var(--accent);
-    padding-left: 14px; margin-bottom: 12px;
+    padding-left: 14px; margin-bottom: 14px;
   }
-  .a { white-space: pre-wrap; color: #222; font-size: 15.5px; }
+  .a { white-space: pre-wrap; color: var(--fg); font-size: 15.5px; }
   .status {
     font-size: 12.5px; color: var(--muted); font-style: italic;
-    margin: 6px 0; display: flex; align-items: center; gap: 6px;
+    margin: 6px 0; display: flex; align-items: center; gap: 8px;
   }
   .status::before {
     content: ""; width: 6px; height: 6px; border-radius: 50%;
@@ -65,8 +88,14 @@
   }
   @keyframes pulse { 0%,100% { opacity: .3; } 50% { opacity: 1; } }
 
-  /* chips (retrieved songs / clickable) */
-  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0 4px; }
+  /* skeleton loader */
+  .skel { display: flex; flex-direction: column; gap: 8px; margin: 12px 0; }
+  .skel .line { height: 12px; border-radius: 4px; background: linear-gradient(90deg, var(--panel) 25%, var(--border) 50%, var(--panel) 75%); background-size: 200% 100%; animation: shimmer 1.4s infinite; }
+  .skel .line:nth-child(2) { width: 90%; }
+  .skel .line:nth-child(3) { width: 70%; }
+  @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0 4px; align-items: center; }
   .chip {
     background: var(--accent-soft); color: var(--accent);
     padding: 4px 10px; border-radius: 999px; font-size: 12px;
@@ -74,16 +103,15 @@
     transition: transform .1s;
   }
   .chip:hover { transform: translateY(-1px); }
-  .chip.label { background: #eee; color: #555; cursor: default; }
+  .chip.label { background: var(--panel); color: var(--muted); cursor: default; }
 
-  /* research timeline */
   .timeline { margin: 12px 0; position: relative; padding-left: 20px; }
   .timeline::before {
     content: ""; position: absolute; left: 6px; top: 6px; bottom: 6px;
     width: 2px; background: var(--border);
   }
   .step {
-    position: relative; padding: 6px 0 6px 8px; font-size: 13px; color: #444;
+    position: relative; padding: 6px 0 6px 8px; font-size: 13px; color: var(--fg);
   }
   .step::before {
     content: ""; position: absolute; left: -18px; top: 12px;
@@ -96,32 +124,40 @@
   .step summary::-webkit-details-marker { display: none; }
   .step details[open] summary .caret { transform: rotate(90deg); }
   .step .caret { display: inline-block; transition: transform .15s; margin-right: 4px; color: var(--muted); }
-  .step .detail { margin-top: 6px; font-size: 12.5px; color: #666; line-height: 1.5; }
-  .step .detail .chips { margin-top: 4px; }
+  .step .detail { margin-top: 6px; font-size: 12.5px; color: var(--muted); line-height: 1.5; }
 
   .judge {
     background: var(--good-soft); border-radius: 8px; padding: 10px 14px;
-    font-size: 13px; color: #2a5a3a; margin-top: 12px;
+    font-size: 13px; color: var(--good); margin-top: 12px;
     display: flex; gap: 16px; flex-wrap: wrap;
   }
-  .judge b { color: #1a3a24; }
+  .judge b { color: var(--good); }
 
-  /* input bar */
+  .actions { display: flex; gap: 8px; margin-top: 12px; }
+  .actions button {
+    background: transparent; border: 1px solid var(--border);
+    color: var(--muted); font-size: 12px; padding: 4px 10px;
+    border-radius: 6px; cursor: pointer; font-family: inherit;
+    transition: all .15s;
+  }
+  .actions button:hover { color: var(--accent); border-color: var(--accent); }
+
   form {
     position: fixed; bottom: 0; left: 0; right: 0; background: var(--bg);
     border-top: 1px solid var(--border); padding: 16px 24px;
     display: flex; justify-content: center; z-index: 10;
+    backdrop-filter: blur(8px);
   }
   .bar { max-width: 780px; width: 100%; display: flex; gap: 8px; align-items: center; }
   input[type=text] {
     flex: 1; padding: 12px 16px; border: 1px solid var(--border);
     border-radius: 999px; font-size: 15px; background: var(--card);
-    font-family: inherit; outline: none;
+    font-family: inherit; outline: none; color: var(--fg);
   }
-  input[type=text]:focus { border-color: var(--accent); }
+  input[type=text]:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
   button.send {
-    background: var(--fg); color: white; border: 0; padding: 12px 22px;
-    border-radius: 999px; font-size: 14px; cursor: pointer; font-family: inherit;
+    background: var(--fg); color: var(--bg); border: 0; padding: 12px 22px;
+    border-radius: 999px; font-size: 14px; cursor: pointer; font-family: inherit; font-weight: 500;
   }
   button.send:disabled { opacity: .4; cursor: not-allowed; }
   label.mode {
@@ -130,56 +166,67 @@
     padding-left: 8px;
   }
 
-  /* song detail panel */
   .panel-bg {
     position: fixed; inset: 0; background: rgba(0,0,0,.35);
     opacity: 0; pointer-events: none; transition: opacity .2s; z-index: 100;
   }
   .panel-bg.open { opacity: 1; pointer-events: auto; }
   .panel {
-    position: fixed; top: 0; right: 0; bottom: 0; width: min(440px, 90vw);
+    position: fixed; top: 0; right: 0; bottom: 0; width: min(440px, 92vw);
     background: var(--bg); border-left: 1px solid var(--border);
     transform: translateX(100%); transition: transform .25s ease; z-index: 101;
-    overflow-y: auto; padding: 32px 28px;
+    overflow-y: auto; padding: 40px 28px;
   }
   .panel.open { transform: translateX(0); }
   .panel .close {
     position: absolute; top: 16px; right: 16px; background: transparent;
-    border: 0; font-size: 22px; cursor: pointer; color: var(--muted);
+    border: 0; font-size: 24px; cursor: pointer; color: var(--muted);
   }
   .panel h2 {
-    font-family: var(--serif); font-weight: 500; font-size: 30px;
-    margin: 0 0 4px; line-height: 1.15;
+    font-family: var(--serif); font-weight: 500; font-size: 32px;
+    margin: 0 0 4px; line-height: 1.15; color: var(--fg);
   }
   .panel .artist { color: var(--muted); font-size: 14px; margin-bottom: 20px; }
   .panel .row { margin-bottom: 16px; font-size: 14px; }
   .panel .row .k {
-    font-size: 11px; text-transform: uppercase; letter-spacing: .5px;
-    color: var(--muted); margin-bottom: 3px;
+    font-size: 10.5px; text-transform: uppercase; letter-spacing: .6px;
+    color: var(--muted); margin-bottom: 4px;
   }
-  .panel .row .v { color: #222; line-height: 1.5; }
+  .panel .row .v { color: var(--fg); line-height: 1.5; }
   .panel .themes span {
     display: inline-block; background: var(--panel); padding: 3px 10px;
-    border-radius: 999px; font-size: 12px; margin: 2px 4px 2px 0;
+    border-radius: 999px; font-size: 12px; margin: 2px 4px 2px 0; color: var(--fg);
   }
-  .panel .summary { font-family: var(--serif); font-size: 18px; font-style: italic; color: #333; line-height: 1.4; }
-  .panel .translation { background: var(--panel); padding: 12px 14px; border-radius: 8px; font-size: 14px; color: #444; }
+  .panel .summary { font-family: var(--serif); font-size: 18px; font-style: italic; color: var(--fg); line-height: 1.4; }
+  .panel .translation { background: var(--panel); padding: 12px 14px; border-radius: 8px; font-size: 14px; color: var(--fg); line-height: 1.5; }
+
+  footer {
+    margin-top: 60px; padding-top: 24px; border-top: 1px solid var(--border);
+    color: var(--muted); font-size: 12px; text-align: center;
+  }
+  footer a { color: var(--muted); }
 
   @media (max-width: 600px) {
-    h1 { font-size: 40px; }
-    body { padding: 24px 16px 120px; }
+    h1 { font-size: 44px; letter-spacing: -1px; }
+    body { padding: 24px 16px 140px; }
     .stats { grid-template-columns: repeat(2, 1fr); }
+    .theme-toggle { top: 12px; right: 12px; }
+    .q { font-size: 20px; }
+    label.mode { display: none; }
+    form { padding: 12px 16px; }
   }
 </style>
 </head>
 <body>
+<button class="theme-toggle" id="themeToggle" title="toggle theme">◐</button>
+
 <header class="hero">
   <h1><em>raga</em></h1>
-  <div class="tagline">a chat over a personal playlist · themes, moods, translations, cross-song analysis</div>
+  <div class="tagline">a chat over a personal playlist · themes, moods, translations, cross-song analysis.</div>
   <div class="stats">
     <div class="stat"><div class="n">88</div><div class="l">songs</div></div>
     <div class="stat"><div class="n">6</div><div class="l">languages</div></div>
-    <div class="stat"><div class="n">3072</div><div class="l">embedding dim</div></div>
+    <div class="stat"><div class="n">3072</div><div class="l">embed dim</div></div>
     <div class="stat"><div class="n">4</div><div class="l">agent roles</div></div>
   </div>
 </header>
@@ -202,6 +249,8 @@
   </div>
 </form>
 
+<footer>built with gemini · retrieval-augmented · multi-agent</footer>
+
 <div class="panel-bg" id="panelBg"></div>
 <aside class="panel" id="panel">
   <button class="close" id="panelClose">×</button>
@@ -209,6 +258,20 @@
 </aside>
 
 <script>
+// theme
+const themeToggle = document.getElementById('themeToggle');
+const savedTheme = localStorage.getItem('raga-theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+if (savedTheme === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+themeToggle.textContent = savedTheme === 'dark' ? '☀' : '◐';
+themeToggle.onclick = () => {
+  const cur = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+  const next = cur === 'dark' ? 'light' : 'dark';
+  if (next === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+  else document.documentElement.removeAttribute('data-theme');
+  themeToggle.textContent = next === 'dark' ? '☀' : '◐';
+  localStorage.setItem('raga-theme', next);
+};
+
 const chat = document.getElementById('chat');
 const f = document.getElementById('f'), q = document.getElementById('q'), b = document.getElementById('b');
 const research = document.getElementById('research');
@@ -218,10 +281,10 @@ panelBg.onclick = closePanel;
 function closePanel() { panel.classList.remove('open'); panelBg.classList.remove('open'); }
 async function openSongPanel(title) {
   panel.classList.add('open'); panelBg.classList.add('open');
-  panelBody.innerHTML = '<div style="color:#888;font-size:14px">loading…</div>';
+  panelBody.innerHTML = '<div class="skel"><div class="line"></div><div class="line"></div><div class="line"></div></div>';
   const r = await fetch('/api/song?title=' + encodeURIComponent(title));
   const s = await r.json();
-  if (s.error) { panelBody.innerHTML = `<div>${s.error}</div>`; return; }
+  if (s.error) { panelBody.innerHTML = `<div style="color:var(--muted)">${s.error}</div>`; return; }
   panelBody.innerHTML = `
     <h2>${s.title}</h2>
     <div class="artist">${s.artist} · ${s.language}</div>
@@ -233,7 +296,6 @@ async function openSongPanel(title) {
 }
 
 const history = [];
-
 document.querySelectorAll('.prompts button').forEach(btn => {
   btn.onclick = () => { q.value = btn.dataset.p; q.focus(); };
 });
@@ -249,6 +311,10 @@ async function ask(text) {
   statusEl.className = 'status';
   statusEl.textContent = 'thinking…';
   body.appendChild(statusEl);
+  const skel = document.createElement('div');
+  skel.className = 'skel';
+  skel.innerHTML = '<div class="line"></div><div class="line"></div><div class="line"></div>';
+  body.appendChild(skel);
 
   const timeline = document.createElement('div');
   timeline.className = 'timeline';
@@ -267,12 +333,10 @@ async function ask(text) {
   });
   const reader = r.body.getReader();
   const dec = new TextDecoder();
-  let buf = '';
-  let fullAnswer = '';
+  let buf = '', fullAnswer = '';
 
   function addStep(label, detailHTML) {
     if (!usingTimeline) { body.insertBefore(timeline, statusEl); usingTimeline = true; }
-    // mark previous step done
     timeline.querySelectorAll('.step').forEach(s => s.classList.add('done'));
     const step = document.createElement('div');
     step.className = 'step';
@@ -282,6 +346,9 @@ async function ask(text) {
       step.innerHTML = `<span class="label">${label}</span>`;
     }
     timeline.appendChild(step);
+  }
+  function attachChipHandlers(root) {
+    root.querySelectorAll('.chip[data-t]').forEach(c => c.onclick = () => openSongPanel(c.dataset.t));
   }
 
   while (true) {
@@ -307,19 +374,18 @@ async function ask(text) {
         const chips = document.createElement('div');
         chips.className = 'chips';
         chips.innerHTML = `<span class="chip label">retrieved</span>` + payload.songs.map(s => `<button class="chip" data-t="${s.title.replace(/"/g,'&quot;')}">${s.title}</button>`).join('');
-        chips.querySelectorAll('.chip[data-t]').forEach(c => c.onclick = () => openSongPanel(c.dataset.t));
+        attachChipHandlers(chips);
         body.insertBefore(chips, statusEl);
       } else if (ev === 'plan') {
         addStep('planned sub-questions', '<ol style="margin:4px 0 0;padding-left:18px">' + payload.subqs.map(s=>`<li>${s}</li>`).join('') + '</ol>');
       } else if (ev === 'sub') {
-        const chipHTML = payload.retrieved.map(t => `<span class="chip" data-t="${t.replace(/"/g,'&quot;')}" style="cursor:pointer">${t}</span>`).join(' ');
-        addStep(`sub-agent ${payload.i} · retrieved`, `<div class="chips">${chipHTML}</div>`);
-        setTimeout(() => {
-          timeline.querySelectorAll('.chip[data-t]').forEach(c => c.onclick = () => openSongPanel(c.dataset.t));
-        }, 0);
+        const chipHTML = payload.retrieved.map(t => `<button class="chip" data-t="${t.replace(/"/g,'&quot;')}">${t}</button>`).join(' ');
+        addStep(`sub-agent ${payload.i}`, `<div class="chips">${chipHTML}</div>`);
+        setTimeout(() => attachChipHandlers(timeline), 0);
       } else if (ev === 'chunk') {
         if (!answerStarted) {
           if (statusEl.parentNode) statusEl.remove();
+          if (skel.parentNode) skel.remove();
           if (usingTimeline) timeline.querySelectorAll('.step').forEach(s => s.classList.add('done'));
           body.appendChild(answerEl);
           answerStarted = true;
@@ -331,7 +397,7 @@ async function ask(text) {
         const j = document.createElement('div');
         j.className = 'judge';
         if (payload.grounding !== undefined) {
-          j.innerHTML = `<span><b>grounding</b> ${payload.grounding}/10</span><span><b>coherence</b> ${payload.coherence}/10</span><span><b>directness</b> ${payload.directness}/10</span>${payload.notes?`<span style="width:100%;color:#3a6a4a">${payload.notes}</span>`:''}`;
+          j.innerHTML = `<span><b>grounding</b> ${payload.grounding}/10</span><span><b>coherence</b> ${payload.coherence}/10</span><span><b>directness</b> ${payload.directness}/10</span>${payload.notes?`<span style="width:100%;color:var(--good)">${payload.notes}</span>`:''}`;
         } else {
           j.textContent = payload.notes || JSON.stringify(payload);
         }
@@ -340,9 +406,27 @@ async function ask(text) {
         statusEl.textContent = 'error: ' + payload.message;
       } else if (ev === 'done') {
         if (statusEl.parentNode) statusEl.remove();
+        if (skel.parentNode) skel.remove();
       }
     }
   }
+
+  // action buttons: copy + share
+  const actions = document.createElement('div');
+  actions.className = 'actions';
+  actions.innerHTML = `<button data-a="copy">copy answer</button><button data-a="share">share query</button>`;
+  actions.querySelector('[data-a=copy]').onclick = () => {
+    navigator.clipboard.writeText(fullAnswer);
+    actions.querySelector('[data-a=copy]').textContent = 'copied ✓';
+    setTimeout(() => actions.querySelector('[data-a=copy]').textContent = 'copy answer', 1500);
+  };
+  actions.querySelector('[data-a=share]').onclick = () => {
+    const url = location.origin + '?q=' + encodeURIComponent(text) + (mode==='research'?'&research=1':'');
+    navigator.clipboard.writeText(url);
+    actions.querySelector('[data-a=share]').textContent = 'link copied ✓';
+    setTimeout(() => actions.querySelector('[data-a=share]').textContent = 'share query', 1500);
+  };
+  body.appendChild(actions);
 
   history.push({role:'model', content: fullAnswer});
   b.disabled = false;
@@ -351,6 +435,13 @@ async function ask(text) {
 }
 
 f.onsubmit = e => { e.preventDefault(); const t = q.value.trim(); if (!t) return; q.value=''; ask(t); };
+
+// deep-link: ?q=...&research=1
+const params = new URLSearchParams(location.search);
+if (params.get('q')) {
+  if (params.get('research')) research.checked = true;
+  setTimeout(() => ask(params.get('q')), 200);
+}
 </script>
 </body>
 </html>
