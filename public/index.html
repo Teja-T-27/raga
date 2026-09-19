@@ -5,41 +5,54 @@
 <title>raga — a chat over your songs</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <style>
-  body{font-family:-apple-system,system-ui,sans-serif;max-width:720px;margin:40px auto;padding:0 20px;background:#faf7f2;color:#1a1a1a}
-  h1{font-weight:300;letter-spacing:-1px}
-  .sub{color:#888;margin-bottom:30px;font-size:14px}
-  #chat{border:1px solid #e4dfd6;border-radius:8px;padding:16px;min-height:300px;background:#fff;margin-bottom:12px;white-space:pre-wrap;font-size:15px;line-height:1.6}
-  .u{color:#7a5cff;font-weight:500;margin-top:12px}
-  .a{color:#1a1a1a;margin-top:4px}
-  form{display:flex;gap:8px}
+  body{font-family:-apple-system,system-ui,sans-serif;max-width:760px;margin:40px auto;padding:0 20px;background:#faf7f2;color:#1a1a1a}
+  h1{font-weight:300;letter-spacing:-1px;margin-bottom:4px}
+  .sub{color:#888;margin-bottom:24px;font-size:14px}
+  #chat{border:1px solid #e4dfd6;border-radius:8px;padding:16px;min-height:300px;background:#fff;margin-bottom:12px;font-size:15px;line-height:1.6}
+  .u{color:#7a5cff;font-weight:500;margin-top:14px}
+  .a{color:#1a1a1a;margin-top:4px;white-space:pre-wrap}
+  .trace{background:#f2ede4;border-left:3px solid #7a5cff;padding:8px 12px;margin:8px 0;font-size:13px;color:#555;font-family:ui-monospace,monospace}
+  .judge{background:#eef7ec;border-left:3px solid #4a8;padding:8px 12px;margin:8px 0;font-size:13px}
+  form{display:flex;gap:8px;margin-bottom:8px}
   input{flex:1;padding:12px;border:1px solid #e4dfd6;border-radius:8px;font-size:15px;background:#fff}
   button{padding:12px 20px;border:0;border-radius:8px;background:#1a1a1a;color:#fff;cursor:pointer;font-size:15px}
   button:disabled{opacity:.5}
+  label{font-size:13px;color:#666}
 </style>
 </head>
 <body>
 <h1>raga</h1>
-<div class="sub">ask anything about the 88 songs in the corpus — themes, moods, translations, comparisons.</div>
+<div class="sub">chat over 88 songs — themes, moods, translations, cross-song analysis.</div>
 <div id="chat"></div>
 <form id="f">
-  <input id="q" placeholder="which songs are about longing at night?" autocomplete="off" required>
+  <input id="q" placeholder="ask something (try 'compare how longing is expressed across languages')" autocomplete="off" required>
   <button id="b">ask</button>
 </form>
+<label><input type="checkbox" id="research"> research mode (planner + sub-agents + judge)</label>
+
 <script>
-const chat=document.getElementById('chat'),f=document.getElementById('f'),q=document.getElementById('q'),b=document.getElementById('b');
+const chat=document.getElementById('chat'),f=document.getElementById('f'),q=document.getElementById('q'),b=document.getElementById('b'),research=document.getElementById('research');
 const history=[];
 f.onsubmit=async e=>{
   e.preventDefault();
   const text=q.value.trim();if(!text)return;
-  chat.innerHTML+=`<div class="u">you: ${text}</div><div class="a" id="cur">thinking…</div>`;
+  const mode = research.checked ? 'research' : 'simple';
+  chat.innerHTML += `<div class="u">you: ${text}</div><div class="a" id="cur">thinking${mode==='research'?' (research mode — this takes ~20-30 sec)':''}…</div>`;
   q.value='';b.disabled=true;
   history.push({role:'user',content:text});
-  const r=await fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({history})});
-  const j=await r.json();
-  const reply=j.reply||j.error||'(no reply)';
-  history.push({role:'model',content:reply});
-  document.getElementById('cur').textContent=reply;
-  document.getElementById('cur').removeAttribute('id');
+  const r = await fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({history, mode})});
+  const j = await r.json();
+  const cur = document.getElementById('cur');
+  cur.removeAttribute('id');
+  if (j.error) { cur.textContent = 'error: ' + j.error; b.disabled=false; return; }
+  let html = '';
+  if (j.trace) { html += j.trace.map(t=>`<div class="trace"><b>${t.step}</b> — ${t.detail}</div>`).join(''); }
+  html += `<div>${j.reply.replace(/</g,'&lt;')}</div>`;
+  if (j.judge && j.judge.grounding !== undefined) {
+    html += `<div class="judge">judge — grounding: ${j.judge.grounding}/10, coherence: ${j.judge.coherence}/10, directness: ${j.judge.directness}/10 · ${j.judge.notes||''}</div>`;
+  }
+  cur.innerHTML = html;
+  history.push({role:'model', content: j.reply});
   b.disabled=false;q.focus();
   window.scrollTo(0,document.body.scrollHeight);
 };
