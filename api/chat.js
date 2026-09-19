@@ -23,13 +23,40 @@ async function embed(text, key) {
   return j.embedding.values;
 }
 
-async function gemini(sys, user, key) {
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent?key=${key}`;
+async function geminiStream(sys, user, key, onChunk) {
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:streamGenerateContent?alt=sse&key=${key}`;
   const r = await fetch(url, {method:'POST', headers:{'Content-Type':'application/json'},
     body: JSON.stringify({
       systemInstruction:{parts:[{text:sys}]},
       contents:[{role:'user', parts:[{text:user}]}]
     })});
+  const reader = r.body.getReader();
+  const dec = new TextDecoder();
+  let full = '', buf = '';
+  while (true) {
+    const {done, value} = await reader.read();
+    if (done) break;
+    buf += dec.decode(value, {stream:true});
+    const lines = buf.split('\n');
+    buf = lines.pop();
+    for (const line of lines) {
+      if (!line.startsWith('data: ')) continue;
+      const payload = line.slice(6).trim();
+      if (!payload) continue;
+      try {
+        const j = JSON.parse(payload);
+        const text = j.candidates?.[0]?.content?.parts?.[0]?.text || '';
+        if (text) { full += text; onChunk(text); }
+      } catch {}
+    }
+  }
+  return full;
+}
+
+async function gemini(sys, user, key) {
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent?key=${key}`;
+  const r = await fetch(url, {method:'POST', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({systemInstruction:{parts:[{text:sys}]}, contents:[{role:'user', parts:[{text:user}]}]})});
   const j = await r.json();
   if (j.error) throw new Error(j.error.message);
   return j.candidates?.[0]?.content?.parts?.[0]?.text || '';
@@ -45,68 +72,70 @@ function fmt(songs) {
   return songs.map(s => `- "${s.title}" by ${s.artist} [${s.language}] mood:${s.mood} themes:${s.themes.join(', ')} — ${s.summary}${s.translation ? ' translation: ' + s.translation : ''}`).join('\n');
 }
 
+function sse(res, event, data) {
+  res.write(`event: ${event}\ndata: ${JSON.stringify(data)}\n\n`);
+}
+
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({error:'POST only'});
+
+  res.writeHead(200, {
+    'Content-Type':'text/event-stream',
+    'Cache-Control':'no-cache',
+    'Connection':'keep-alive'
+  });
+
   try {
     const { history, mode } = req.body;
     const key = process.env.GEMINI_KEY;
     const corpus = loadCorpus();
     const question = [...history].reverse().find(m => m.role === 'user')?.content || '';
 
-    // simple mode: single RAG call (Rung 2 behaviour)
     if (mode !== 'research') {
+      sse(res, 'status', {text:'retrieving relevant songs...'});
       const qvec = await embed(question, key);
       const top = retrieve(corpus, qvec, 8);
+      sse(res, 'retrieved', {songs: top.map(s => ({title:s.title, artist:s.artist}))});
       const sys = `You are raga, a companion to a personal playlist. Answer only from the retrieved songs. Cite by title and artist.\n\nRETRIEVED:\n${fmt(top)}`;
-      const reply = await gemini(sys, question, key);
-      return res.status(200).json({reply, retrieved: top.map(s=>s.title), mode:'simple'});
+      await geminiStream(sys, question, key, (chunk) => sse(res, 'chunk', {text:chunk}));
+      sse(res, 'done', {});
+      return res.end();
     }
 
-    // research mode: planner → sub-agents → synth → judge
-    const trace = [];
-
-    // 1. Planner
-    trace.push({step:'planning', detail:'Breaking your question into sub-questions...'});
-    const planSys = `You are a research planner. Given a question about a personal playlist of 88 songs (multi-language: English, Hindi, Telugu, Punjabi, Korean, etc.), break it into 3 focused sub-questions that together answer it well. Return ONLY a JSON array of 3 strings, nothing else.`;
+    // research mode
+    sse(res, 'status', {text:'planning sub-questions...'});
+    const planSys = `You are a research planner. Given a question about a personal playlist of 88 songs (multi-language), break it into 3 focused sub-questions that together answer it well. Return ONLY a JSON array of 3 strings.`;
     const planRaw = await gemini(planSys, question, key);
     let subqs;
-    try { subqs = JSON.parse(planRaw.match(/\[[\s\S]*\]/)[0]); }
-    catch { subqs = [question]; }
-    trace.push({step:'plan', detail:`Sub-questions: ${subqs.map((q,i)=>`(${i+1}) ${q}`).join(' ')}`});
+    try { subqs = JSON.parse(planRaw.match(/\[[\s\S]*\]/)[0]); } catch { subqs = [question]; }
+    sse(res, 'plan', {subqs});
 
-    // 2. Sub-agents in parallel
-    const subResults = await Promise.all(subqs.map(async (sq, i) => {
-      const qvec = await embed(sq, key);
+    const subResults = [];
+    for (let i=0; i<subqs.length; i++) {
+      sse(res, 'status', {text:`sub-agent ${i+1} researching...`});
+      const qvec = await embed(subqs[i], key);
       const top = retrieve(corpus, qvec, 5);
-      const sys = `You are a research sub-agent. Answer the sub-question using ONLY the retrieved songs. Cite by title and artist. Be concise (3-5 sentences).\n\nRETRIEVED:\n${fmt(top)}`;
-      const answer = await gemini(sys, sq, key);
-      return {subq: sq, retrieved: top.map(s=>s.title), answer};
-    }));
-    subResults.forEach((r,i) => trace.push({step:`sub-agent ${i+1}`, detail:`Retrieved: ${r.retrieved.join(', ')}`}));
+      const sys = `You are a research sub-agent. Answer using ONLY the retrieved songs. Cite by title and artist. Be concise (3-5 sentences).\n\nRETRIEVED:\n${fmt(top)}`;
+      const answer = await gemini(sys, subqs[i], key);
+      subResults.push({subq: subqs[i], retrieved: top.map(s=>s.title), answer});
+      sse(res, 'sub', {i:i+1, retrieved: top.map(s=>s.title)});
+    }
 
-    // 3. Synthesizer
-    trace.push({step:'synthesizing', detail:'Combining sub-agent findings into a final answer...'});
+    sse(res, 'status', {text:'synthesizing final answer...'});
     const synthSys = `You are a synthesizer. Combine these sub-agent findings into a coherent answer to the original question. Cite specific songs. Keep it focused, essay-style, 2-4 paragraphs.`;
-    const synthUser = `ORIGINAL QUESTION: ${question}\n\nSUB-AGENT FINDINGS:\n${subResults.map((r,i)=>`[${i+1}] ${r.subq}\n${r.answer}`).join('\n\n')}`;
-    const finalAnswer = await gemini(synthSys, synthUser, key);
+    const synthUser = `ORIGINAL: ${question}\n\nFINDINGS:\n${subResults.map((r,i)=>`[${i+1}] ${r.subq}\n${r.answer}`).join('\n\n')}`;
+    const finalAnswer = await geminiStream(synthSys, synthUser, key, (chunk) => sse(res, 'chunk', {text:chunk}));
 
-    // 4. Judge
-    trace.push({step:'judging', detail:'Scoring the answer against a rubric...'});
-    const judgeSys = `You are an evaluator. Score the answer on: (1) grounding in cited songs (0-10), (2) coherence (0-10), (3) directly answers the question (0-10). Return JSON: {"grounding":N, "coherence":N, "directness":N, "notes":"one line"}. No prose outside JSON.`;
-    const judgeUser = `QUESTION: ${question}\n\nANSWER: ${finalAnswer}`;
-    const judgeRaw = await gemini(judgeSys, judgeUser, key);
+    sse(res, 'status', {text:'judging...'});
+    const judgeSys = `You are an evaluator. Score the answer on: grounding (0-10), coherence (0-10), directness (0-10). Return JSON: {"grounding":N,"coherence":N,"directness":N,"notes":"one line"}. JSON only.`;
+    const judgeRaw = await gemini(judgeSys, `QUESTION: ${question}\n\nANSWER: ${finalAnswer}`, key);
     let judge = null;
-    try { judge = JSON.parse(judgeRaw.match(/\{[\s\S]*\}/)[0]); } catch { judge = {raw: judgeRaw}; }
-
-    return res.status(200).json({
-      reply: finalAnswer,
-      mode: 'research',
-      trace,
-      subResults,
-      judge
-    });
-
+    try { judge = JSON.parse(judgeRaw.match(/\{[\s\S]*\}/)[0]); } catch { judge = {notes: judgeRaw}; }
+    sse(res, 'judge', judge);
+    sse(res, 'done', {});
+    res.end();
   } catch (e) {
-    return res.status(500).json({error: e.message});
+    sse(res, 'error', {message: e.message});
+    res.end();
   }
 }

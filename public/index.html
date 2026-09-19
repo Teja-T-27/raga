@@ -2,60 +2,231 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>raga — a chat over your songs</title>
+<title>raga · a chat over your songs</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <style>
-  body{font-family:-apple-system,system-ui,sans-serif;max-width:760px;margin:40px auto;padding:0 20px;background:#faf7f2;color:#1a1a1a}
-  h1{font-weight:300;letter-spacing:-1px;margin-bottom:4px}
-  .sub{color:#888;margin-bottom:24px;font-size:14px}
-  #chat{border:1px solid #e4dfd6;border-radius:8px;padding:16px;min-height:300px;background:#fff;margin-bottom:12px;font-size:15px;line-height:1.6}
-  .u{color:#7a5cff;font-weight:500;margin-top:14px}
-  .a{color:#1a1a1a;margin-top:4px;white-space:pre-wrap}
-  .trace{background:#f2ede4;border-left:3px solid #7a5cff;padding:8px 12px;margin:8px 0;font-size:13px;color:#555;font-family:ui-monospace,monospace}
-  .judge{background:#eef7ec;border-left:3px solid #4a8;padding:8px 12px;margin:8px 0;font-size:13px}
-  form{display:flex;gap:8px;margin-bottom:8px}
-  input{flex:1;padding:12px;border:1px solid #e4dfd6;border-radius:8px;font-size:15px;background:#fff}
-  button{padding:12px 20px;border:0;border-radius:8px;background:#1a1a1a;color:#fff;cursor:pointer;font-size:15px}
-  button:disabled{opacity:.5}
-  label{font-size:13px;color:#666}
+  :root {
+    --bg: #faf7f2; --fg: #1a1a1a; --muted: #8a857c;
+    --card: #ffffff; --border: #ece5d8;
+    --accent: #7a5cff; --accent-soft: #ede8ff;
+    --good: #4a8; --good-soft: #eaf6ec;
+    --serif: "Cormorant Garamond", "Iowan Old Style", Georgia, serif;
+    --sans: -apple-system, "Inter", system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: var(--sans); background: var(--bg); color: var(--fg);
+    max-width: 780px; margin: 0 auto; padding: 40px 24px 120px;
+    line-height: 1.55; font-size: 15.5px;
+  }
+  header { margin-bottom: 28px; }
+  h1 {
+    font-family: var(--serif); font-weight: 500; font-size: 46px;
+    letter-spacing: -1px; margin: 0 0 4px; line-height: 1;
+  }
+  h1 em { color: var(--accent); font-style: italic; }
+  .tagline { color: var(--muted); font-size: 14px; }
+  .prompts { display: flex; flex-wrap: wrap; gap: 8px; margin: 20px 0 28px; }
+  .prompts button {
+    background: var(--card); border: 1px solid var(--border);
+    padding: 8px 14px; border-radius: 999px; font-size: 13px;
+    cursor: pointer; color: #444; font-family: inherit;
+    transition: all .15s;
+  }
+  .prompts button:hover { border-color: var(--accent); color: var(--accent); }
+  #chat { display: flex; flex-direction: column; gap: 24px; margin-bottom: 24px; }
+  .turn { animation: fade .3s ease; }
+  @keyframes fade { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+  .q {
+    font-family: var(--serif); font-size: 22px; font-weight: 500;
+    color: var(--fg); border-left: 3px solid var(--accent);
+    padding-left: 14px; margin-bottom: 12px;
+  }
+  .a { white-space: pre-wrap; color: #222; font-size: 15.5px; }
+  .a p { margin: 0 0 12px; }
+  .status {
+    font-size: 12.5px; color: var(--muted); font-style: italic;
+    margin: 6px 0; display: flex; align-items: center; gap: 6px;
+  }
+  .status::before {
+    content: ""; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent); animation: pulse 1s infinite;
+  }
+  @keyframes pulse { 0%,100% { opacity: .3; } 50% { opacity: 1; } }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0 4px; }
+  .chip {
+    background: var(--accent-soft); color: var(--accent);
+    padding: 4px 10px; border-radius: 999px; font-size: 12px;
+  }
+  .plan {
+    background: #f5f0e6; border-radius: 8px; padding: 12px 14px;
+    font-size: 13px; color: #555; margin: 8px 0;
+  }
+  .plan b { color: #222; }
+  .plan ol { margin: 6px 0 0; padding-left: 20px; }
+  .judge {
+    background: var(--good-soft); border-radius: 8px; padding: 10px 14px;
+    font-size: 13px; color: #2a5a3a; margin-top: 12px;
+    display: flex; gap: 16px; flex-wrap: wrap;
+  }
+  .judge b { color: #1a3a24; }
+  form {
+    position: fixed; bottom: 0; left: 0; right: 0; background: var(--bg);
+    border-top: 1px solid var(--border); padding: 16px 24px;
+    display: flex; justify-content: center;
+  }
+  .bar { max-width: 780px; width: 100%; display: flex; gap: 8px; align-items: center; }
+  input[type=text] {
+    flex: 1; padding: 12px 16px; border: 1px solid var(--border);
+    border-radius: 999px; font-size: 15px; background: var(--card);
+    font-family: inherit; outline: none;
+  }
+  input[type=text]:focus { border-color: var(--accent); }
+  button.send {
+    background: var(--fg); color: white; border: 0; padding: 12px 22px;
+    border-radius: 999px; font-size: 14px; cursor: pointer; font-family: inherit;
+  }
+  button.send:disabled { opacity: .4; cursor: not-allowed; }
+  label.mode {
+    font-size: 12.5px; color: var(--muted); display: flex;
+    align-items: center; gap: 6px; cursor: pointer; user-select: none;
+    padding-left: 8px;
+  }
+  @media (max-width: 600px) {
+    h1 { font-size: 36px; }
+    body { padding: 24px 16px 120px; }
+  }
 </style>
 </head>
 <body>
-<h1>raga</h1>
-<div class="sub">chat over 88 songs — themes, moods, translations, cross-song analysis.</div>
+<header>
+  <h1><em>raga</em></h1>
+  <div class="tagline">a chat over 88 songs · themes, moods, translations, cross-song analysis</div>
+</header>
+
+<div class="prompts">
+  <button data-p="which songs are about longing at night?">longing at night</button>
+  <button data-p="compare how heartbreak is expressed across languages">heartbreak across languages</button>
+  <button data-p="which songs would fit a slow rainy evening?">slow rainy evening</button>
+  <button data-p="find high-energy party tracks">party tracks</button>
+  <button data-p="which songs have the most vivid imagery?">vivid imagery</button>
+</div>
+
 <div id="chat"></div>
+
 <form id="f">
-  <input id="q" placeholder="ask something (try 'compare how longing is expressed across languages')" autocomplete="off" required>
-  <button id="b">ask</button>
+  <div class="bar">
+    <input id="q" type="text" placeholder="ask anything…" autocomplete="off" required>
+    <label class="mode"><input type="checkbox" id="research"> research</label>
+    <button class="send" id="b">ask</button>
+  </div>
 </form>
-<label><input type="checkbox" id="research"> research mode (planner + sub-agents + judge)</label>
 
 <script>
-const chat=document.getElementById('chat'),f=document.getElementById('f'),q=document.getElementById('q'),b=document.getElementById('b'),research=document.getElementById('research');
-const history=[];
-f.onsubmit=async e=>{
-  e.preventDefault();
-  const text=q.value.trim();if(!text)return;
+const chat = document.getElementById('chat');
+const f = document.getElementById('f'), q = document.getElementById('q'), b = document.getElementById('b');
+const research = document.getElementById('research');
+const history = [];
+
+document.querySelectorAll('.prompts button').forEach(btn => {
+  btn.onclick = () => { q.value = btn.dataset.p; q.focus(); };
+});
+
+async function ask(text) {
   const mode = research.checked ? 'research' : 'simple';
-  chat.innerHTML += `<div class="u">you: ${text}</div><div class="a" id="cur">thinking${mode==='research'?' (research mode — this takes ~20-30 sec)':''}…</div>`;
-  q.value='';b.disabled=true;
-  history.push({role:'user',content:text});
-  const r = await fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({history, mode})});
-  const j = await r.json();
-  const cur = document.getElementById('cur');
-  cur.removeAttribute('id');
-  if (j.error) { cur.textContent = 'error: ' + j.error; b.disabled=false; return; }
-  let html = '';
-  if (j.trace) { html += j.trace.map(t=>`<div class="trace"><b>${t.step}</b> — ${t.detail}</div>`).join(''); }
-  html += `<div>${j.reply.replace(/</g,'&lt;')}</div>`;
-  if (j.judge && j.judge.grounding !== undefined) {
-    html += `<div class="judge">judge — grounding: ${j.judge.grounding}/10, coherence: ${j.judge.coherence}/10, directness: ${j.judge.directness}/10 · ${j.judge.notes||''}</div>`;
+  const turn = document.createElement('div');
+  turn.className = 'turn';
+  turn.innerHTML = `<div class="q">${text}</div><div class="body"></div>`;
+  chat.appendChild(turn);
+  const body = turn.querySelector('.body');
+  const statusEl = document.createElement('div');
+  statusEl.className = 'status';
+  statusEl.textContent = 'thinking…';
+  body.appendChild(statusEl);
+
+  history.push({role:'user', content:text});
+  b.disabled = true;
+
+  const answerEl = document.createElement('div');
+  answerEl.className = 'a';
+  let answerStarted = false;
+
+  const r = await fetch('/api/chat', {
+    method:'POST', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({history, mode})
+  });
+  const reader = r.body.getReader();
+  const dec = new TextDecoder();
+  let buf = '', currentEvent = 'message';
+  let fullAnswer = '';
+
+  while (true) {
+    const {done, value} = await reader.read();
+    if (done) break;
+    buf += dec.decode(value, {stream:true});
+    const parts = buf.split('\n\n');
+    buf = parts.pop();
+    for (const part of parts) {
+      const lines = part.split('\n');
+      let ev = 'message', data = '';
+      for (const line of lines) {
+        if (line.startsWith('event: ')) ev = line.slice(7).trim();
+        else if (line.startsWith('data: ')) data += line.slice(6);
+      }
+      if (!data) continue;
+      let payload;
+      try { payload = JSON.parse(data); } catch { continue; }
+
+      if (ev === 'status') {
+        statusEl.textContent = payload.text;
+      } else if (ev === 'retrieved') {
+        const chips = document.createElement('div');
+        chips.className = 'chips';
+        chips.innerHTML = payload.songs.map(s => `<span class="chip">${s.title} · ${s.artist.split(',')[0]}</span>`).join('');
+        body.insertBefore(chips, statusEl);
+      } else if (ev === 'plan') {
+        const plan = document.createElement('div');
+        plan.className = 'plan';
+        plan.innerHTML = `<b>plan</b><ol>${payload.subqs.map(s=>`<li>${s}</li>`).join('')}</ol>`;
+        body.insertBefore(plan, statusEl);
+      } else if (ev === 'sub') {
+        const chips = document.createElement('div');
+        chips.className = 'chips';
+        chips.innerHTML = `<span class="chip">sub-agent ${payload.i}</span>` + payload.retrieved.map(t => `<span class="chip">${t}</span>`).join('');
+        body.insertBefore(chips, statusEl);
+      } else if (ev === 'chunk') {
+        if (!answerStarted) {
+          statusEl.remove();
+          body.appendChild(answerEl);
+          answerStarted = true;
+        }
+        fullAnswer += payload.text;
+        answerEl.textContent = fullAnswer;
+        window.scrollTo(0, document.body.scrollHeight);
+      } else if (ev === 'judge') {
+        const j = document.createElement('div');
+        j.className = 'judge';
+        if (payload.grounding !== undefined) {
+          j.innerHTML = `<span><b>grounding</b> ${payload.grounding}/10</span><span><b>coherence</b> ${payload.coherence}/10</span><span><b>directness</b> ${payload.directness}/10</span>${payload.notes?`<span style="width:100%;color:#3a6a4a">${payload.notes}</span>`:''}`;
+        } else {
+          j.textContent = payload.notes || JSON.stringify(payload);
+        }
+        body.appendChild(j);
+      } else if (ev === 'error') {
+        statusEl.textContent = 'error: ' + payload.message;
+      } else if (ev === 'done') {
+        if (statusEl.parentNode) statusEl.remove();
+      }
+    }
   }
-  cur.innerHTML = html;
-  history.push({role:'model', content: j.reply});
-  b.disabled=false;q.focus();
-  window.scrollTo(0,document.body.scrollHeight);
-};
+
+  history.push({role:'model', content: fullAnswer});
+  b.disabled = false;
+  q.focus();
+  window.scrollTo(0, document.body.scrollHeight);
+}
+
+f.onsubmit = e => { e.preventDefault(); const t = q.value.trim(); if (!t) return; q.value=''; ask(t); };
 </script>
 </body>
 </html>
